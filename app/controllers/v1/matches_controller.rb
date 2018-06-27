@@ -16,8 +16,8 @@ module V1
 
     # POST /matches
     def create
-      @match = Match.new(match_params)
 
+      @match = Match.new(match_params)
       if @match.save
         render json: @match, status: :created, location: v1_match_url(@match)
       else
@@ -47,7 +47,8 @@ module V1
 
       # Only allow a trusted parameter "white list" through.
       def match_params
-        params.require(:match).permit(:date,:stadium_id)
+        params.require(:match).permit(:date,:stadium_id,
+            teams_attributes: [:id, :name, :code,:group_id])
       end
   end
 end

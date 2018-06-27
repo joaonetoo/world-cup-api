@@ -6,10 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
-# %x(rails db:drop db:create db:migrate)
 teams = []
 names_groups = %w(A B C D E F G H)
 groups = []
+
 names_groups.each do |name|
     group = Group.create(name: name)
     groups << group
@@ -43,7 +43,8 @@ CSV.foreach('tmp/fifa.csv',options) do |row|
     unless teams.include?(player_team)
         teams << player_team
         group_team = groups_include_teams[player_team.to_sym]
-        team = Team.create(name: player_team, group: group_team)
+        code = player_team[0..2].upcase
+        team = Team.create(name: player_team, code: code, group: group_team)
     end
     Player.create(name: player_name, position: player_position,
                   age: player_age, team: team)
@@ -53,3 +54,18 @@ CSV.foreach('tmp/stadiums.csv') do |row|
     stadium_city, stadium_name = row[0], row[1]
     Stadium.create(name: stadium_name,city: stadium_city)
 end
+
+groups.each do |group|
+    teams_group = group.teams
+    teams_group.length.times do
+        for i in (0...3) do
+            game = Match.create(date: Time.at(rand * Time.now.to_i), stadium: Stadium.all.sample)
+            teams_group[i].matches <<  game
+            teams_group[i+1].matches << game
+        end
+    end
+end
+
+
+Player.reindex
+Team.reindex

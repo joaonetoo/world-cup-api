@@ -4,9 +4,10 @@ module V1
 
     # GET /players
     def index
-      @players = Player.all
-
-      render json: @players
+      @players = Rails.cache.fetch('players') do
+        Player.all
+      end
+       render json: @players
     end
 
     # GET /players/1
@@ -42,7 +43,13 @@ module V1
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_player
-        @player = Player.find(params[:id])
+
+        if Rails.cache.fetch("players")
+          players = Rails.cache.fetch("players")
+          @player = players.where(id: params[:id]).first
+        else
+          @player = Player.find(params[:id])
+        end
       end
 
       # Only allow a trusted parameter "white list" through.

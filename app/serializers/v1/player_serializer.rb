@@ -7,5 +7,6 @@ module V1
          { self: v1_player_url(object.id) }
       end
 
+
     end
 end

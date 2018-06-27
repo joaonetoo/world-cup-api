@@ -4,11 +4,16 @@ module V1
 
     # GET /teams
     def index
-      @teams = Team.all
+      page = select_params(params[:page], 1)
+      per_page = select_params(params[:per_page], 10)
+      q = select_params(params[:q],"*")
 
+      @teams = Team.search(q, page: page,
+                          fields: [:name, :code],
+                          per_page: per_page,
+                          order: {name: :asc})
       render json: @teams #, include: {group: {only: :name}}
     end
-
     # GET /teams/1
     def show
       render json: @team, root: true
@@ -45,9 +50,13 @@ module V1
         @team = Team.find(params[:id])
       end
 
+      def select_params(param,default)
+        param ? param: default
+      end
+
       # Only allow a trusted parameter "white list" through.
       def team_params
-        params.require(:team).permit(:name,:group_id)
+        params.require(:team).permit(:name,:code,:group_id)
       end
   end
 end
