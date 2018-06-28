@@ -9,10 +9,9 @@ You can access api documentation at this link: https://app.swaggerhub.com/apis/j
 
 * Install Elasticsearch as service
 
-#### Starting the database
+#### Starting database
 
 ```
 rails db:create db:migrate db:seed
-rails db:create db:migrate db:seed RAILS_ENV=teste
 
 ```
