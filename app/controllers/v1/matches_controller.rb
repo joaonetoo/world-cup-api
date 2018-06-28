@@ -16,7 +16,6 @@ module V1
 
     # POST /matches
     def create
-
       @match = Match.new(match_params)
       if @match.save
         render json: @match, status: :created, location: v1_match_url(@match)

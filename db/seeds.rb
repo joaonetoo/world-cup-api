@@ -37,7 +37,7 @@ groups_include_teams = {
 team = Team.new
 options = { headers: true, header_converters: :symbol }
 
-CSV.foreach('tmp/fifa.csv',options) do |row|
+CSV.foreach('lib/fifa.csv',options) do |row|
     player_team, player_position = row[0], row[1]
     player_name, player_age = row[2], row[4].to_i
     unless teams.include?(player_team)
@@ -50,7 +50,7 @@ CSV.foreach('tmp/fifa.csv',options) do |row|
                   age: player_age, team: team)
 end
 
-CSV.foreach('tmp/stadiums.csv') do |row|
+CSV.foreach('lib/stadiums.csv') do |row|
     stadium_city, stadium_name = row[0], row[1]
     Stadium.create(name: stadium_name,city: stadium_city)
 end

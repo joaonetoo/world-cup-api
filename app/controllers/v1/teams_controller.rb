@@ -8,8 +8,8 @@ module V1
       per_page = select_params(params[:per_page], 10)
       q = select_params(params[:q],"*")
 
-      @teams = Team.search(q, page: page,
-                          fields: [:name, :code],
+      @teams = Team.search(q,fields: [:name, :code],
+                          page: page,
                           per_page: per_page,
                           order: {name: :asc})
       render json: @teams #, include: {group: {only: :name}}
