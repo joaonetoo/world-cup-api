@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :team do
-    name Team.all.sample.name
-    code Team.all.sample.code
+    name "Brazil"
+    code "BR"
     group
 
     transient do

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :match do
-    date Match.all.sample.date.to_s
+    date "2018-07-01"
     stadium
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :group do
-    name Group.all.sample.name
+    name "Group A"
   end
 end

@@ -1,24 +1,18 @@
-# README
+# API WorldCup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Documentation
+You can access api documentation at this link: https://app.swaggerhub.com/apis/joaonetoo/world-cup-api/1.0.0#/
 
-Things you may want to cover:
+### Requirements:
 
-* Ruby version
+* Install Redis as service
 
-* System dependencies
+* Install Elasticsearch as service
 
-* Configuration
+#### Starting the database
 
-* Database creation
+```
+rails db:create db:migrate db:seed
+rails db:create db:migrate db:seed RAILS_ENV=teste
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
